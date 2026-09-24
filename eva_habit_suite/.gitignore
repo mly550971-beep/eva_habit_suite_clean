@@ -1,0 +1,25 @@
+# Eva runtime secrets & personal data - never commit these
+eva/data/secret.key
+eva/data/memory.json
+eva/data/tool_stats.json
+eva/data/sessions/
+eva/data/exports/
+eva/data/profile.json
+eva/logs/
+logs/
+
+# Environment / API keys
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

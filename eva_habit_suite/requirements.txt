@@ -1,0 +1,15 @@
+# Combined requirements for running Eva + Habit Tracker from ONE Python
+# environment (recommended: one virtualenv for the whole eva_habit_suite
+# folder). No package overlaps between the two apps, so this is just the
+# union of eva/requirements.txt and habit_tracker/requirements.txt.
+#
+# If you'd rather keep them fully separate (two venvs), you can instead
+# run:
+#   pip install -r eva/requirements.txt --break-system-packages
+#   pip install -r habit_tracker/requirements.txt --break-system-packages
+# -- but then run_both.py / start_both.bat must be launched with a Python
+# interpreter that has BOTH venvs' packages available, so one shared venv
+# is simpler.
+
+-r eva/requirements.txt
+-r habit_tracker/requirements.txt

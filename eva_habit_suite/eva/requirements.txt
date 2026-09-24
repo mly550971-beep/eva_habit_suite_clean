@@ -1,0 +1,83 @@
+# UI and camera
+customtkinter>=5.2.0,<6.0.0
+# NOTE: opencv-contrib-python REPLACES opencv-python (it's a drop-in
+# superset - same "import cv2" - and adds cv2.face needed for face
+# recognition). Do not install both at once.
+opencv-contrib-python>=4.9.0,<5.0.0
+# NOTE: was pillow<11 - bumped because Pillow only ships prebuilt Windows
+# wheels for newer Python versions (3.13+) starting at 11.x. <11 has no
+# wheel for those interpreters and fails trying to compile from source.
+pillow>=11.0.0
+
+# AI
+python-dotenv>=1.0.0,<2.0.0
+requests>=2.31.0,<3.0.0
+
+# Voice (text-to-speech)
+edge-tts>=6.1.0,<7.0.0
+# NOTE: was pygame<3.0.0 - the mainline `pygame` project has stalled and
+# doesn't ship wheels for current Python versions. pygame-ce (Community
+# Edition) is the actively-maintained fork, is a drop-in replacement
+# (still `import pygame` in code, nothing else changes), and does publish
+# current wheels.
+pygame-ce
+
+# Voice (speech-to-text - online + offline)
+SpeechRecognition>=3.10.0,<4.0.0
+# NOTE: was PyAudio<0.3.0 - the original PyAudio project does not publish
+# prebuilt Windows wheels for current Python versions and has no working
+# from-source build without a separately-installed PortAudio C library.
+# PyAudioWPatch is an actively-maintained fork with current wheels; the
+# accompanying pyaudio.py shim in the project root redirects `import
+# pyaudio` (used internally by SpeechRecognition) to it, so no code here
+# needed to change.
+PyAudioWPatch>=0.2.12.6
+vosk>=0.3.45,<0.4.0
+
+# Settings and reliability
+PyYAML>=6.0,<7.0
+
+# Hand-raise gesture detection (local, no cloud calls)
+mediapipe>=0.10.0,<0.11.0
+
+# Browser tab control, media key simulation, and (if enabled) direct
+# keyboard/mouse control (control_computer)
+pyautogui>=0.9.54,<0.10.0
+
+# Global hotkey (works even when no Eva window is focused)
+keyboard>=0.13.5,<0.14.0
+
+# System tray icon
+pystray>=0.19.5,<0.20.0
+
+# Desktop notifications (reminders, tool-error alerts)
+plyer>=2.1.0,<3.0.0
+
+# Voice lock (best-effort speaker similarity check)
+librosa>=0.10.0,<0.11.0
+# NOTE: numpy is version-split on purpose.
+# numpy>=2 has wheels for modern Pythons, but mediapipe 0.10.x is compiled
+# against the numpy 1.x C-ABI. On Python 3.9 (which is what this project is
+# actually being run with) that mismatch makes `import mediapipe` abort the
+# whole process at the C level - no Python traceback, the app just closes.
+# numpy 1.26.4 ships a cp39 wheel, so there is nothing to compile there.
+numpy>=1.26,<2; python_version < "3.10"
+numpy>=2.0.0; python_version >= "3.10"
+# mediapipe's protobuf runtime: 5.x breaks the 0.10.x generated code.
+protobuf>=4.25,<5
+
+# Live system stats panel (CPU/RAM/Disk) in the Eva window - lightweight, pure Python
+psutil>=5.9.0,<6.0.0
+
+# Exporting conversation history to a Word document - lightweight, pure Python
+python-docx>=1.1.0,<2.0.0
+
+# Clipboard access (copy_text_from_screen)
+pyperclip>=1.8.0,<2.0.0
+cryptography
+pyttsx3
+
+# Required by the self_improve tool: it runs the test suite after applying a
+# patch and rolls the change back if it fails. Without pytest installed that
+# step errors out, so self-improvement can never validate anything.
+pytest>=7.0
